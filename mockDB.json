@@ -1,0 +1,66 @@
+{
+  "circles": [
+    {
+      "_id": "1",
+      "name": "Philosophy in AI",
+      "slug": "phil-ai-26",
+      "status": "active",
+      "capacity": 0,
+      "telegramLink": ""
+    },
+    {
+      "_id": "1776789901597",
+      "name": "shahnameh khani",
+      "slug": "shahnameh-khani",
+      "status": "active",
+      "capacity": 20,
+      "telegramLink": ""
+    },
+    {
+      "_id": "1776789976500",
+      "name": "circle 2",
+      "slug": "circle-2",
+      "status": "closed",
+      "capacity": 0,
+      "telegramLink": ""
+    },
+    {
+      "_id": "1776790362094",
+      "name": "Iran History ",
+      "slug": "iran-history",
+      "status": "active",
+      "capacity": 5,
+      "telegramLink": ""
+    }
+  ],
+  "submissions": [
+    {
+      "_id": "s1",
+      "circleId": "1",
+      "fullName": "Jane Doe",
+      "email": "jane@example.com",
+      "country": "Canada",
+      "educationLevel": "PhD",
+      "fieldOfStudy": "Philosophy",
+      "notified": false,
+      "createdAt": "2026-04-21T16:44:48.961Z"
+    },
+    {
+      "_id": "1776794850782",
+      "fullName": "Diba Makki",
+      "email": "diba.mak@gmail.com",
+      "country": "Canada",
+      "educationLevel": "Others",
+      "fieldOfStudy": "CS",
+      "interestedSubjects": [
+        "اقتصاد Economy",
+        "تاریخ History",
+        "سایر هنرها Other Arts"
+      ],
+      "agreedToCodeOfConduct": true,
+      "circleId": "1776789901597",
+      "notified": false,
+      "createdAt": "2026-04-21T18:07:30.782Z"
+    }
+  ]
+}
