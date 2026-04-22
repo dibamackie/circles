@@ -15,7 +15,7 @@ export function getDB() {
           descriptionEn: 'Discussing the fundamental problems of intelligence, consciousness, and ethics in modern AI architectures.',
           descriptionFa: 'بحث درباره مشکلات اساسی هوش، آگاهی و اخلاق در معماریهای مدرن هوش مصنوعی.',
           status: 'open', 
-          capacityLimit: 20, 
+          capacity: 20, 
         },
         { 
           _id: '2', 
@@ -25,7 +25,7 @@ export function getDB() {
           descriptionEn: 'A deep dive into paradigm shifts and the scientific revolutions from the 16th century to modern quantum mechanics.',
           descriptionFa: 'نگاهی عمیق به تغییر پارادایمها و انقلابهای علمی از قرن ۱۶ تا مکانیک کوانتومی مدرن.',
           status: 'closed', 
-          capacityLimit: 15,
+          capacity: 15,
         },
         { 
           _id: '3', 
@@ -35,7 +35,7 @@ export function getDB() {
           descriptionEn: 'Exploring the intersection of sociology, politics, and public health policies.',
           descriptionFa: 'بررسی تقاطع جامعه‌شناسی، سیاست و سیاست‌های بهداشت عمومی.',
           status: 'open', 
-          capacityLimit: 2, // Low capacity to test full state
+          capacity: 2, // Low capacity to test full state
         }
       ],
       submissions: [

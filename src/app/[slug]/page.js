@@ -80,40 +80,69 @@ export default function RegistrationForm({ params }) {
     }
   };
 
-  if (loading) return <div style={{ textAlign: 'center', marginTop: '4rem' }}>Loading registration form...</div>;
+  if (loading) return <div className="text-center mt-8">Loading registration form... / در حال بارگذاری...</div>;
   if (error) return (
-    <div className="container" style={{ marginTop: '4rem', maxWidth: '600px' }}>
+    <div style={{ maxWidth: '600px', margin: '4rem auto' }}>
       <div className="alert alert-error">
-        <h3>Cannot Access Form</h3>
+        <h3 className="font-serif">Cannot Access Form</h3>
         <p>{error}</p>
       </div>
     </div>
   );
 
   if (success) return (
-    <div className="glass-panel animate-fade-in" style={{ maxWidth: '600px', margin: '4rem auto', textAlign: 'center' }}>
-      <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>ðŸŽ‰</div>
-      <h2 style={{ color: 'var(--success)' }}>Registration Successful</h2>
-      <p style={{ color: 'var(--text-secondary)', margin: '1.5rem 0' }}>
-        Thank you for registering for <strong>{circle.name}</strong>. 
-        We have sent a confirmation email to your address.
+    <div className="card animate-fade-in text-center" style={{ maxWidth: '600px', margin: '4rem auto' }}>
+      <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>🎉</div>
+      <h2 className="font-serif" style={{ color: 'var(--success)' }}>Registration Successful</h2>
+      <p style={{ color: 'var(--text-secondary)', margin: '1.5rem 0', fontSize: '1.1rem' }}>
+        Thank you for registering for <strong style={{ color: 'var(--foreground)' }}>{circle.titleEn || circle.name}</strong>. 
+      </p>
+      <p className="dir-rtl" style={{ color: 'var(--text-secondary)', margin: '1.5rem 0', fontSize: '1.1rem' }}>
+        ثبت نام شما با موفقیت انجام شد. ما یک ایمیل تایید به آدرس شما ارسال کرده‌ایم.
       </p>
     </div>
   );
 
+  const isFull = circle.capacity > 0 && circle.currentRegistrations >= circle.capacity;
+  const isClosed = circle.status === 'closed';
+
+  if (isClosed || isFull) {
+    return (
+      <div className="card animate-fade-in text-center" style={{ maxWidth: '600px', margin: '4rem auto' }}>
+        <div className="motif-circle-large"></div>
+        <h2 className="font-serif" style={{ color: 'var(--danger)', marginBottom: '1rem' }}>
+          {isClosed ? 'Registration Closed' : 'Capacity is Full'}
+        </h2>
+        <h3 className="font-sans dir-rtl" style={{ color: 'var(--danger)', marginBottom: '2rem', fontWeight: 300 }}>
+          {isClosed ? 'ثبت نام بسته شده است' : 'ظرفیت تکمیل است'}
+        </h3>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: '1.6' }}>
+          Unfortunately, we cannot accept any more registrations for <strong>{circle.titleEn || circle.name}</strong> at this time.
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <div className="glass-panel animate-fade-in" style={{ maxWidth: '800px', margin: '2rem auto' }}>
-      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        <h2 style={{ color: 'var(--accent-primary)', marginBottom: '0.5rem' }}>{circle.name}</h2>
-        <p style={{ color: 'var(--text-secondary)' }}>Please fill out the form below to register.</p>
+    <div className="card animate-fade-in" style={{ maxWidth: '800px', margin: '2rem auto' }}>
+      <div className="motif-circle-large"></div>
+      <div className="text-center" style={{ marginBottom: '3rem', position: 'relative', zIndex: 1 }}>
+        <h2 className="font-serif" style={{ color: 'var(--accent-primary)', marginBottom: '0.5rem', fontSize: '2rem' }}>{circle.titleEn || circle.name}</h2>
+        <h3 className="font-sans dir-rtl" style={{ color: 'var(--text-secondary)', marginBottom: '1rem', fontWeight: 300 }}>{circle.titleFa}</h3>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'var(--background)', padding: '0.5rem 1rem', borderRadius: '20px', border: '1px solid var(--border-color)' }}>
+            <div className="motif-circle"></div>
+            <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
+              {circle.capacity > 0 ? `${circle.currentRegistrations} / ${circle.capacity} Spots Filled` : 'Unlimited Spots'}
+            </span>
+        </div>
       </div>
 
       {submitError && <div className="alert alert-error">{submitError}</div>}
 
-      <form onSubmit={handleSubmit}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+      <form onSubmit={handleSubmit} style={{ position: 'relative', zIndex: 1 }}>
+        <div className="grid md:grid-cols-2 gap-6">
           <div className="form-group">
-            <label>Full Name</label>
+            <label>Full Name / نام و نام خانوادگی</label>
             <input 
               type="text" className="form-control" 
               value={formData.fullName} onChange={(e) => setFormData({...formData, fullName: e.target.value})}
@@ -121,7 +150,7 @@ export default function RegistrationForm({ params }) {
             />
           </div>
           <div className="form-group">
-            <label>Email Address</label>
+            <label>Email Address / آدرس ایمیل</label>
             <input 
               type="email" className="form-control" 
               value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})}
@@ -130,9 +159,9 @@ export default function RegistrationForm({ params }) {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1.5rem' }}>
+        <div className="grid md:grid-cols-3 gap-6 mt-4">
           <div className="form-group">
-            <label>Country of Residence</label>
+            <label>Country / کشور محل سکونت</label>
             <input 
               type="text" className="form-control" 
               value={formData.country} onChange={(e) => setFormData({...formData, country: e.target.value})}
@@ -140,15 +169,15 @@ export default function RegistrationForm({ params }) {
             />
           </div>
           <div className="form-group">
-            <label>Level of Education</label>
+            <label>Education / مقطع تحصیلی</label>
             <input 
-              type="text" className="form-control" placeholder="e.g. Bachelor's, Master's"
+              type="text" className="form-control" placeholder="e.g. Master's"
               value={formData.educationLevel} onChange={(e) => setFormData({...formData, educationLevel: e.target.value})}
               required 
             />
           </div>
           <div className="form-group">
-            <label>Field of Study</label>
+            <label>Field of Study / رشته تحصیلی</label>
             <input 
               type="text" className="form-control" 
               value={formData.fieldOfStudy} onChange={(e) => setFormData({...formData, fieldOfStudy: e.target.value})}
@@ -157,40 +186,50 @@ export default function RegistrationForm({ params }) {
           </div>
         </div>
 
-        <div className="form-group" style={{ marginBottom: '2rem' }}>
-          <label>Interested Subjects (Select multiple by holding Ctrl/Cmd)</label>
+        <div className="form-group mt-4">
+          <label>Interested Subjects / موضوعات مورد علاقه</label>
+          <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
+            Select multiple by holding Ctrl/Cmd
+          </p>
           <select 
             multiple 
             className="form-control" 
-            style={{ height: '200px' }}
+            style={{ height: '180px' }}
             onChange={handleSubjectChange}
             required
             value={formData.interestedSubjects}
           >
             {SUBJECTS.map((subject, idx) => (
-               <option key={idx} value={subject}>{subject}</option>
+               <option key={idx} value={subject} style={{ padding: '0.5rem' }}>{subject}</option>
             ))}
           </select>
-          <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.5rem' }}>
+          <p style={{ fontSize: '0.85rem', color: 'var(--accent-primary)', marginTop: '0.5rem', fontWeight: 500 }}>
              Selected: {formData.interestedSubjects.length} subject(s)
           </p>
         </div>
 
-        <div className="form-group checkbox-group" style={{ background: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
-          <input 
-            type="checkbox" id="conductCheckbox"
-            checked={formData.agreedToCodeOfConduct} 
-            onChange={(e) => setFormData({...formData, agreedToCodeOfConduct: e.target.checked})}
-            required
-          />
-          <label htmlFor="conductCheckbox">
-             I agree to The Fly Bottle circle code of conduct.
-          </label>
+        <div className="form-group mt-8" style={{ background: 'var(--background)', padding: '1.5rem', borderRadius: 'var(--border-radius)', border: '1px solid var(--border-color)' }}>
+          <div className="checkbox-group">
+            <input 
+              type="checkbox" id="conductCheckbox"
+              checked={formData.agreedToCodeOfConduct} 
+              onChange={(e) => setFormData({...formData, agreedToCodeOfConduct: e.target.checked})}
+              required
+            />
+            <label htmlFor="conductCheckbox" style={{ fontSize: '0.95rem' }}>
+              I agree to the <a href="#" target="_blank" style={{ fontWeight: 600, textDecoration: 'underline' }}>Code of Conduct</a>.<br/>
+              <span className="dir-rtl" style={{ display: 'block', marginTop: '0.5rem' }}>
+                من با <a href="#" target="_blank" style={{ fontWeight: 600, textDecoration: 'underline' }}>آیین‌نامه رفتاری حلقه‌های مگس در بطری</a> موافقت می‌کنم.
+              </span>
+            </label>
+          </div>
         </div>
 
-        <button type="submit" className="btn-primary" style={{ width: '100%', padding: '1rem', fontSize: '1.1rem' }} disabled={submitLoading}>
-          {submitLoading ? 'Submitting Registration...' : 'Complete Registration'}
-        </button>
+        <div className="mt-8">
+          <button type="submit" className="btn-primary w-full" style={{ padding: '1.25rem', fontSize: '1.1rem' }} disabled={submitLoading}>
+            {submitLoading ? 'Submitting Registration...' : 'Complete Registration / تکمیل ثبت نام'}
+          </button>
+        </div>
       </form>
     </div>
   );

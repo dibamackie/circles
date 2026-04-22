@@ -16,52 +16,53 @@ export default function CirclesList() {
             .catch(() => setLoading(false));
     }, []);
 
-    if (loading) return <div className="min-h-screen flex items-center justify-center text-gray-500">Loading circles... / Ø¯Ø± Ø­Ø§Ù„ Ø¨Ø§Ø±Ú¯Ø°Ø§Ø±ÛŒ...</div>;
+    if (loading) return <div className="min-h-screen flex items-center justify-center text-center mt-8">Loading circles... / در حال بارگذاری...</div>;
 
     return (
-        <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 font-sans">
-            <div className="max-w-6xl mx-auto">
-                <header className="text-center mb-12">
-                    <h1 className="text-4xl font-bold text-gray-900 mb-2 tracking-tight">Available Circles</h1>
-                    <h2 className="text-2xl font-light text-gray-600 block dir-rtl">Ø­Ù„Ù‚Ù‡â€ŒÙ‡Ø§ÛŒ Ø¯Ø± Ø¯Ø³ØªØ±Ø³</h2>
-                </header>
+        <div className="animate-fade-in" style={{ paddingBottom: '4rem' }}>
+            <header className="text-center mb-8">
+                <h2 className="font-serif" style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Available Circles</h2>
+                <h3 className="font-sans dir-rtl" style={{ fontSize: '1.5rem', fontWeight: 300, color: 'var(--text-secondary)' }}>حلقه‌های در دسترس</h3>
+            </header>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {circles && circles.map(circle => {
-                        const isFull = circle.capacityLimit > 0 && circle.currentRegistrations >= circle.capacityLimit;
-                        const isClosed = circle.status === 'closed';
-                        const locked = isFull || isClosed;
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {circles && circles.map(circle => {
+                    const isFull = circle.capacity > 0 && circle.currentRegistrations >= circle.capacity;
+                    const isClosed = circle.status === 'closed';
+                    const locked = isFull || isClosed;
 
-                        return (
-                            <div key={circle._id} className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col hover:shadow-lg transition-transform hover:-translate-y-1 duration-300">
-                                <div className="p-6 flex-grow">
-                                    <div className="flex justify-between items-start mb-4">
-                                        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
-                                            locked ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-700'
-                                        }`}>
-                                            {isClosed ? 'Closed / Ø¨Ø³ØªÙ‡' : isFull ? 'Full / ØªÚ©Ù…ÛŒÙ„' : 'Open / Ø¨Ø§Ø²'}
-                                        </span>
-                                    </div>
-                                    <h3 className="text-xl font-bold text-gray-900 mb-1">{circle.titleEn || circle.name}</h3>
-                                    <h4 className="text-lg font-medium text-gray-500 mb-4" dir="rtl">{circle.titleFa}</h4>
-                                    
-                                    <p className="text-gray-700 text-sm mb-3 font-light leading-relaxed">{circle.descriptionEn}</p>
-                                    <p className="text-gray-700 text-sm mb-4 text-right font-light leading-relaxed" dir="rtl">{circle.descriptionFa}</p>
+                    return (
+                        <div key={circle._id} className="card" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
+                            <div className="motif-circle-large"></div>
+                            <div style={{ flexGrow: 1, zIndex: 1, position: 'relative' }}>
+                                <div className="flex justify-between items-start mb-4">
+                                    <span className={`badge ${locked ? (isClosed ? 'badge-closed' : 'badge-full') : 'badge-open'}`}>
+                                        {isClosed ? 'Closed / بسته' : isFull ? 'Full / تکمیل' : 'Open / باز'}
+                                    </span>
                                 </div>
-                                <div className="px-6 py-4 bg-gray-50 border-t border-gray-100 mt-auto">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm text-gray-500 font-semibold bg-white px-3 py-1 rounded-md border border-gray-200">
-                                            {circle.capacityLimit > 0 ? `${circle.currentRegistrations} / ${circle.capacityLimit} spots` : `${circle.currentRegistrations} joined`}
-                                        </span>
-                                        <Link href={`/circles/${circle.slug}`} className={`px-5 py-2.5 rounded-lg text-sm font-bold text-white transition-all ${locked ? 'bg-gray-300 cursor-not-allowed pointer-events-none' : 'bg-black hover:bg-gray-800 shadow-md hover:shadow-xl'}`}>
+                                <h3 className="font-serif" style={{ fontSize: '1.25rem', marginBottom: '0.25rem' }}>{circle.titleEn || circle.name}</h3>
+                                <h4 className="dir-rtl" style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>{circle.titleFa}</h4>
+                                
+                                <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', marginBottom: '1rem', lineHeight: '1.6' }}>{circle.descriptionEn}</p>
+                                <p className="dir-rtl" style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', marginBottom: '1.5rem', lineHeight: '1.6' }}>{circle.descriptionFa}</p>
+                            </div>
+                            <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem', marginTop: 'auto', zIndex: 1, position: 'relative' }}>
+                                <div className="flex items-center justify-between">
+                                    <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
+                                        {circle.capacity > 0 ? `${circle.currentRegistrations} / ${circle.capacity} spots` : `${circle.currentRegistrations} joined`}
+                                    </span>
+                                    {locked ? (
+                                        <button className="btn-primary" disabled>Register</button>
+                                    ) : (
+                                        <Link href={`/circles/${circle.slug}`} className="btn-primary" style={{ padding: '0.5rem 1.25rem', fontSize: '0.9rem' }}>
                                             Register
                                         </Link>
-                                    </div>
+                                    )}
                                 </div>
                             </div>
-                        )
-                    })}
-                </div>
+                        </div>
+                    )
+                })}
             </div>
         </div>
     );

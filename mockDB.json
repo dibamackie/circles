@@ -28,9 +28,9 @@
       "_id": "1776790362094",
       "name": "Iran History ",
       "slug": "iran-history",
-      "status": "active",
-      "capacity": 5,
-      "telegramLink": ""
+      "status": "closed",
+      "capacity": 3,
+      "telegramLink": "https://t.me/+O_6yMjoio1Q2ZWRk"
     }
   ],
   "submissions": [
@@ -61,6 +61,57 @@
       "circleId": "1776789901597",
       "notified": false,
       "createdAt": "2026-04-21T18:07:30.782Z"
+    },
+    {
+      "_id": "1776874483419",
+      "fullName": "asghr akabari",
+      "email": "asghar.akbari@gmail.com",
+      "country": "Germany",
+      "educationLevel": "Master ",
+      "fieldOfStudy": "CS",
+      "interestedSubjects": [
+        "ادبیات Literature",
+        "اقتصاد Economy",
+        "انسانشناسی Anthropology"
+      ],
+      "agreedToCodeOfConduct": true,
+      "circleId": "1776790362094",
+      "notified": true,
+      "createdAt": "2026-04-22T16:14:43.419Z"
+    },
+    {
+      "_id": "1776874521197",
+      "fullName": "hskjsa skdhkas",
+      "email": "sahjasjd@gmail.com",
+      "country": "CANADA",
+      "educationLevel": "Dimploma",
+      "fieldOfStudy": "Business",
+      "interestedSubjects": [
+        "تاریخ History",
+        "روانشناسی Psychology",
+        "مطالعات دینی Religious Studies"
+      ],
+      "agreedToCodeOfConduct": true,
+      "circleId": "1776790362094",
+      "notified": true,
+      "createdAt": "2026-04-22T16:15:21.197Z"
+    },
+    {
+      "_id": "1776875018684",
+      "fullName": "test test",
+      "email": "test@gmail.com",
+      "country": "US",
+      "educationLevel": "BA",
+      "fieldOfStudy": "Theater ",
+      "interestedSubjects": [
+        "ادبیات Literature",
+        "زبانشناسی Linguistics",
+        "روانشناسی Psychology"
+      ],
+      "agreedToCodeOfConduct": true,
+      "circleId": "1776790362094",
+      "notified": true,
+      "createdAt": "2026-04-22T16:23:38.684Z"
     }
   ]
 }

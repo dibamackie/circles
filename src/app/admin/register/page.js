@@ -40,9 +40,9 @@ export default function Register() {
   };
 
   return (
-    <div className="glass-panel animate-fade-in" style={{ maxWidth: '600px', margin: '4rem auto' }}>
-      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        <h2 style={{ color: 'var(--accent-primary)', marginBottom: '0.5rem' }}>Admin Registration</h2>
+    <div className="card animate-fade-in" style={{ maxWidth: '600px', margin: '4rem auto' }}>
+      <div className="text-center" style={{ marginBottom: '2rem' }}>
+        <h2 className="font-serif" style={{ color: 'var(--accent-primary)', marginBottom: '0.5rem', fontSize: '1.75rem' }}>Admin Registration</h2>
         <p style={{ color: 'var(--text-secondary)' }}>Create a new administrator account.</p>
       </div>
       
@@ -50,7 +50,7 @@ export default function Register() {
       {success && <div className="alert alert-success">{success}</div>}
       
       <form onSubmit={handleSubmit}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+        <div className="grid md:grid-cols-2 gap-4">
           <div className="form-group">
             <label>First Name</label>
             <input 
@@ -87,7 +87,7 @@ export default function Register() {
           />
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+        <div className="grid md:grid-cols-2 gap-4">
           <div className="form-group">
             <label>Position</label>
             <input 
@@ -104,17 +104,16 @@ export default function Register() {
           </div>
         </div>
 
-        <button type="submit" className="btn-primary" style={{ width: '100%', marginTop: '1rem' }} disabled={loading}>
+        <button type="submit" className="btn-primary w-full mt-4" disabled={loading}>
           {loading ? 'Processing...' : 'Register'}
         </button>
       </form>
       
-      <div style={{ textAlign: 'center', marginTop: '1rem', fontSize: '0.9rem' }}>
+      <div className="text-center mt-8" style={{ fontSize: '0.9rem' }}>
         <Link href="/admin/login" style={{ color: 'var(--text-secondary)' }}>
-          Already have an account? <span style={{ color: 'var(--accent-primary)' }}>Sign In</span>
+          Already have an account? <span style={{ color: 'var(--accent-primary)', fontWeight: 500 }}>Sign In</span>
         </Link>
       </div>
     </div>
   );
 }
-

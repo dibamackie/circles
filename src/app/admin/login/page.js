@@ -36,9 +36,9 @@ export default function Login() {
   };
 
   return (
-    <div className="glass-panel animate-fade-in" style={{ maxWidth: '400px', margin: '4rem auto' }}>
-      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        <h2 style={{ color: 'var(--accent-primary)', marginBottom: '0.5rem' }}>Admin Access</h2>
+    <div className="card animate-fade-in" style={{ maxWidth: '400px', margin: '4rem auto' }}>
+      <div className="text-center" style={{ marginBottom: '2rem' }}>
+        <h2 className="font-serif" style={{ color: 'var(--accent-primary)', marginBottom: '0.5rem', fontSize: '1.75rem' }}>Admin Access</h2>
         <p style={{ color: 'var(--text-secondary)' }}>Sign in to manage circles.</p>
       </div>
       
@@ -68,16 +68,15 @@ export default function Login() {
             required 
           />
         </div>
-        <button type="submit" className="btn-primary" style={{ width: '100%', marginBottom: '1rem' }} disabled={loading}>
+        <button type="submit" className="btn-primary w-full mt-4" disabled={loading}>
           {loading ? 'Authenticating...' : 'Sign In'}
         </button>
       </form>
-      <div style={{ textAlign: 'center', marginTop: '1rem', fontSize: '0.9rem' }}>
+      <div className="text-center mt-8" style={{ fontSize: '0.9rem' }}>
         <Link href="/admin/register" style={{ color: 'var(--text-secondary)' }}>
-          Need an account? <span style={{ color: 'var(--accent-primary)' }}>Register</span>
+          Need an account? <span style={{ color: 'var(--accent-primary)', fontWeight: 500 }}>Register</span>
         </Link>
       </div>
     </div>
   );
 }
-

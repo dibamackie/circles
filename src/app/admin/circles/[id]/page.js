@@ -117,17 +117,17 @@ export default function CircleDetails({ params }) {
     }
   };
 
-  if (loading) return <div style={{ textAlign: 'center', marginTop: '4rem' }}>Loading circle...</div>;
-  if (!circle) return <div style={{ textAlign: 'center', marginTop: '4rem' }}>Circle not found</div>;
+  if (loading) return <div className="text-center mt-8">Loading circle...</div>;
+  if (!circle) return <div className="text-center mt-8">Circle not found</div>;
 
   return (
     <div className="animate-fade-in" style={{ padding: '2rem 0' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+      <div className="flex justify-between items-center mb-8">
         <div>
-          <h2 style={{ color: 'var(--accent-primary)', marginBottom: '0.5rem' }}>{circle.name}</h2>
-          <div style={{ display: 'flex', gap: '1rem', color: 'var(--text-secondary)' }}>
+          <h2 className="font-serif" style={{ color: 'var(--accent-primary)', marginBottom: '0.5rem', fontSize: '2rem' }}>{circle.name}</h2>
+          <div className="flex items-center gap-4" style={{ color: 'var(--text-secondary)' }}>
             <span>Slug: /{circle.slug}</span>
-            <span style={{ display: 'flex', alignItems: 'center' }}>
+            <span className="flex items-center">
               Status: 
               <select 
                 value={circle.status} 
@@ -141,7 +141,7 @@ export default function CircleDetails({ params }) {
                 <option value="closed">closed</option>
               </select>
             </span>
-            <span style={{ display: 'flex', alignItems: 'center' }}>
+            <span className="flex items-center">
               Capacity (0=Unl): 
               <input 
                 type="number"
@@ -158,7 +158,7 @@ export default function CircleDetails({ params }) {
             </span>
           </div>
         </div>
-        <Link href="/admin/dashboard" className="btn-secondary" style={{ padding: '0.4rem 0.8rem' }}>
+        <Link href="/admin/dashboard" className="btn-secondary">
           Back to Dashboard
         </Link>
       </div>
@@ -166,13 +166,13 @@ export default function CircleDetails({ params }) {
       {error && <div className="alert alert-error">{error}</div>}
       {success && <div className="alert alert-success">{success}</div>}
 
-      <div className="glass-panel" style={{ marginBottom: '2rem' }}>
-        <h3 style={{ marginBottom: '1rem' }}>Telegram Invitation Configuration</h3>
-        <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem', fontSize: '0.9rem' }}>
+      <div className="card mb-8">
+        <h3 className="font-serif" style={{ marginBottom: '1rem', fontSize: '1.25rem' }}>Telegram Invitation Configuration</h3>
+        <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', fontSize: '0.95rem' }}>
           When you add or update the Telegram invite link, the system will automatically send an invitation email to all existing registered users who have not yet received one.
         </p>
         
-        <form onSubmit={handleUpdateLink} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-end' }}>
+        <form onSubmit={handleUpdateLink} className="flex gap-4 items-end">
           <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
             <label>Telegram Group Link</label>
             <input 
@@ -182,17 +182,17 @@ export default function CircleDetails({ params }) {
             />
           </div>
           <button type="submit" className="btn-primary" disabled={updateLoading}>
-            {updateLoading ? 'Updating & Sending Emails...' : 'Save & Send Invites'}
+            {updateLoading ? 'Updating...' : 'Save & Send Invites'}
           </button>
         </form>
       </div>
 
-      <div className="glass-panel">
-        <h3 style={{ marginBottom: '1rem' }}>Registered Submissions ({submissions.length})</h3>
+      <div className="card">
+        <h3 className="font-serif" style={{ marginBottom: '1.5rem', fontSize: '1.25rem' }}>Registered Submissions ({submissions.length})</h3>
         {submissions.length === 0 ? (
           <p style={{ color: 'var(--text-secondary)' }}>No submissions for this circle yet.</p>
         ) : (
-          <div style={{ overflowX: 'auto' }}>
+          <div className="table-responsive">
             <table className="data-table">
               <thead>
                 <tr>
@@ -208,19 +208,21 @@ export default function CircleDetails({ params }) {
               <tbody>
                 {submissions.map(sub => (
                   <tr key={sub._id}>
-                    <td>{sub.fullName}</td>
-                    <td>{sub.email}</td>
+                    <td style={{ fontWeight: 500 }}>{sub.fullName}</td>
+                    <td style={{ wordBreak: 'break-all', maxWidth: '200px' }}>{sub.email}</td>
                     <td>{sub.country}</td>
                     <td>{sub.educationLevel}</td>
-                    <td>{sub.fieldOfStudy}</td>
+                    <td style={{ maxWidth: '250px' }}>{sub.fieldOfStudy}</td>
                     <td>
                       {sub.notified ? (
-                        <span className="status-badge" style={{ background: 'rgba(16, 185, 129, 0.2)', color: 'var(--success)' }}>Sent</span>
+                        <span className="badge badge-open">Sent</span>
                       ) : (
-                        <span className="status-badge" style={{ background: 'rgba(239, 68, 68, 0.2)', color: 'var(--danger)' }}>Pending</span>
+                        <span className="badge badge-closed">Pending</span>
                       )}
                     </td>
-                    <td style={{ fontSize: '0.85rem' }}>{new Date(sub.createdAt).toLocaleDateString()}</td>
+                    <td style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', whiteSpace: 'nowrap' }}>
+                      {new Date(sub.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                    </td>
                   </tr>
                 ))}
               </tbody>

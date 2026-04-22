@@ -32,6 +32,15 @@ export async function POST(req) {
     };
 
     db.submissions.push(newSubmission);
+    
+    // Auto-close circle if capacity is reached
+    if (circle.capacity > 0) {
+        const newCount = db.submissions.filter(s => s.circleId === circle._id).length;
+        if (newCount >= circle.capacity) {
+            circle.status = 'closed';
+        }
+    }
+
     saveDB(db);
 
     return NextResponse.json({ success: true, message: 'Mock Registration received and saved locally.' });
