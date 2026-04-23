@@ -8,7 +8,7 @@ export async function GET(req, { params }) {
     const db = getDB();
     const circle = db.circles.find(c => c.slug === slug);
 
-    if (!circle) {
+    if (!circle || circle.status === 'draft') {
       return NextResponse.json({ error: 'Circle not found' }, { status: 404 });
     }
 

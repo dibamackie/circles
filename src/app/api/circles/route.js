@@ -6,13 +6,15 @@ export async function GET() {
     const db = getDB();
     
     // Calculate currentRegistrations for each circle
-    const circlesWithCounts = db.circles.map(circle => {
-      const count = db.submissions.filter(s => s.circleId === circle._id).length;
-      return {
-        ...circle,
-        currentRegistrations: count
-      };
-    });
+    const circlesWithCounts = db.circles
+      .filter(circle => circle.status !== 'draft')
+      .map(circle => {
+        const count = db.submissions.filter(s => s.circleId === circle._id).length;
+        return {
+          ...circle,
+          currentRegistrations: count
+        };
+      });
 
     return NextResponse.json({ success: true, circles: circlesWithCounts });
   } catch (error) {

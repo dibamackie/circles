@@ -31,6 +31,14 @@
       "status": "closed",
       "capacity": 3,
       "telegramLink": "https://t.me/+O_6yMjoio1Q2ZWRk"
+    },
+    {
+      "_id": "1776957665882",
+      "name": "تست",
+      "slug": "test",
+      "status": "draft",
+      "capacity": 0,
+      "telegramLink": ""
     }
   ],
   "submissions": [
