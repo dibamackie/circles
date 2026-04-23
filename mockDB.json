@@ -33,10 +33,10 @@
       "telegramLink": "https://t.me/+O_6yMjoio1Q2ZWRk"
     },
     {
-      "_id": "1776957665882",
-      "name": "تست",
-      "slug": "test",
-      "status": "closed",
+      "_id": "1776959745080",
+      "name": "شاهنامه خوانی",
+      "slug": "shahnamekhani",
+      "status": "active",
       "capacity": 0,
       "telegramLink": "https://t.me/+O_6yMjoio1Q2ZWRk"
     }
@@ -122,53 +122,7 @@
       "createdAt": "2026-04-22T16:23:38.684Z"
     },
     {
-      "_id": "1776958342548",
-      "fullName": "Diba Makki",
-      "email": "diba.mak@gmail.com",
-      "country": "Canada",
-      "educationLevel": "Master",
-      "fieldOfStudy": "CS",
-      "interestedSubjects": [
-        "موسیقی Music"
-      ],
-      "agreedToCodeOfConduct": true,
-      "circleId": "1776957665882",
-      "notified": true,
-      "createdAt": "2026-04-23T15:32:22.548Z"
-    },
-    {
-      "_id": "1776958547605",
-      "fullName": "Diba Makki",
-      "email": "diba.makki@theflybottle.org",
-      "country": "Canada",
-      "educationLevel": "Diploma",
-      "fieldOfStudy": "CS",
-      "interestedSubjects": [
-        "روانشناسی Psychology"
-      ],
-      "agreedToCodeOfConduct": true,
-      "circleId": "1776957665882",
-      "notified": true,
-      "createdAt": "2026-04-23T15:35:47.605Z"
-    },
-    {
-      "_id": "1776959035393",
-      "fullName": "asghar",
-      "email": "diba.mak@gmail.com",
-      "country": "Canada",
-      "educationLevel": "Master",
-      "fieldOfStudy": "Test",
-      "interestedSubjects": [
-        "ادبیات Literature",
-        "اقتصاد Economy"
-      ],
-      "agreedToCodeOfConduct": true,
-      "circleId": "1776957665882",
-      "notified": true,
-      "createdAt": "2026-04-23T15:43:55.393Z"
-    },
-    {
-      "_id": "1776959235449",
+      "_id": "1776959797434",
       "fullName": "Diba Makki",
       "email": "diba.makki@theflybottle.org",
       "country": "Canada",
@@ -176,12 +130,13 @@
       "fieldOfStudy": "test",
       "interestedSubjects": [
         "اقتصاد Economy",
+        "انسانشناسی Anthropology",
         "تاریخ History"
       ],
       "agreedToCodeOfConduct": true,
-      "circleId": "1776957665882",
+      "circleId": "1776959745080",
       "notified": true,
-      "createdAt": "2026-04-23T15:47:15.449Z"
+      "createdAt": "2026-04-23T15:56:37.434Z"
     }
   ]
 }

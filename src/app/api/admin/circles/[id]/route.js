@@ -72,3 +72,28 @@ export async function PUT(req, { params }) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
+
+export async function DELETE(req, { params }) {
+  try {
+    const session = await getSession();
+    if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+    const { id } = await params;
+    
+    const db = getDB();
+    const circleIndex = db.circles.findIndex(c => c._id === id);
+    if (circleIndex === -1) return NextResponse.json({ error: 'Circle not found' }, { status: 404 });
+
+    // Remove the circle
+    db.circles.splice(circleIndex, 1);
+    
+    // Also remove associated submissions
+    db.submissions = db.submissions.filter(sub => sub.circleId !== id);
+    
+    saveDB(db);
+
+    return NextResponse.json({ success: true, message: 'Circle deleted successfully.' });
+  } catch (error) {
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
+}
