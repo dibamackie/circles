@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getDB, saveDB } from '@/lib/mockDB';
+import { sendConfirmationEmail, sendTelegramInviteEmail } from '@/lib/email';
 
 export async function POST(req) {
   try {
@@ -31,6 +32,14 @@ export async function POST(req) {
       createdAt: new Date().toISOString()
     };
 
+    const circleName = circle.titleEn || circle.name;
+
+    // If telegram link already exists, send invite immediately
+    if (circle.telegramLink) {
+        await sendTelegramInviteEmail(data.email, data.fullName, circleName, circle.telegramLink);
+        newSubmission.notified = true;
+    }
+
     db.submissions.push(newSubmission);
     
     // Auto-close circle if capacity is reached
@@ -43,7 +52,7 @@ export async function POST(req) {
 
     saveDB(db);
 
-    return NextResponse.json({ success: true, message: 'Mock Registration received and saved locally.' });
+    return NextResponse.json({ success: true, message: 'Registration received successfully.' });
 
   } catch (error) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

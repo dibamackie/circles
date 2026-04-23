@@ -2,7 +2,7 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY || 're_test123');
 
-const SENDER_EMAIL = 'The Fly Bottle <no-reply@theflybottle.org>';
+const SENDER_EMAIL = 'onboarding@resend.dev';
 
 export async function sendConfirmationEmail(toEmail, name, circleName) {
   try {

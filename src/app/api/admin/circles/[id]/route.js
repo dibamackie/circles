@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
 import { getDB, saveDB } from '@/lib/mockDB';
+import { sendTelegramInviteEmail } from '@/lib/email';
 
 export async function GET(req, { params }) {
   try {
@@ -36,14 +37,26 @@ export async function PUT(req, { params }) {
     // Update fields
     const updatedCircle = { ...db.circles[circleIndex], ...data };
     
-    // Auto-mark notifications if Telegram link is added for the first time
+    // Auto-mark notifications and send emails if Telegram link is added for the first time
     if (data.telegramLink && !db.circles[circleIndex].telegramLink) {
+        const emailPromises = [];
+
         db.submissions = db.submissions.map(sub => {
             if (sub.circleId === id && !sub.notified) {
+                emailPromises.push(
+                    sendTelegramInviteEmail(
+                        sub.email,
+                        sub.fullName,
+                        updatedCircle.titleEn || updatedCircle.name,
+                        data.telegramLink
+                    )
+                );
                 return { ...sub, notified: true };
             }
             return sub;
         });
+
+        await Promise.allSettled(emailPromises);
     }
     
     db.circles[circleIndex] = updatedCircle;
